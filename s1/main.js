@@ -1,14 +1,24 @@
 import {Conta} from './Conta.js';
 
-const c1 = new Conta('0001', 'Ana Lima');
-const c2 = new Conta('0002', 'Bruno Souza');
+const conta = new Conta('0001', 'Ana Lima');
+conta.depositar(100);
+conta.sacar(30);
 
-c1.depositar(100);
-c1.sacar(30);
+// forçar erro
+const tentativas = [
+    () => {conta.saldo = -5000;},
+    () => conta.depositar(-50),
+    () => conta.sacar(1000),
+    () => {conta.titular = '';}
+];
 
-console.log(c1);
-console.log(`Saldo da C2: ${c2.saldo}`);
+for (const t of tentativas) {
+    try {
+        t();
+    } catch (error) {
+        console.log('Bloqueado: ', error.message);
+    }
+}
 
-console.log(typeof Conta);
-console.log(Object.getPrototypeOf(c1) === Conta.prototype);
-console.log(Object.hasOwn(c1, 'sacar')); // o método mora no protótipo, não no objeto
+console.log('Saldo continua:', conta.saldo);
+console.log(conta); // repare: #saldo e #titular não aparecem
