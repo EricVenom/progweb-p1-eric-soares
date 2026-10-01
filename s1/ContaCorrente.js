@@ -8,7 +8,12 @@ export class ContaCorrente extends Conta {
   }
 
   // sobrescrita: conta corrente pode entrar no limite
-  saldoDisponivel() {
-    return this.saldo + this.limite;
-  }
+    saldoDisponivel() {
+        return this.saldo + this.limite;
+    }
+    
+    tarifaMensal() {
+        return 12.9;
+    }
+
 }
