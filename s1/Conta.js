@@ -30,9 +30,14 @@ export class Conta {
         this.#saldo += valor;
     }
 
+    // (novo) quanto dá para sacar agora? As subclasses podem redefinir.
+    saldoDisponivel() {
+        return this.#saldo;
+    }
+
     sacar(valor) {
-        if (!(valor > 0)) throw new Error('Saque deve ser positivo.');
-        if (valor > this.#saldo) throw new Error('Saldo insuficiente.');
+        if (!(valor > 0)) throw new Error('Saque deve ser positivo');
+        if (valor > this.saldoDisponivel()) throw new Error('Saldo insuficiente'); // ← mudou
         this.#saldo -= valor;
     }
 
